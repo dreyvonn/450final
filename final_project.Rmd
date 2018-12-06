@@ -19,3 +19,15 @@ data_clean <- na.omit(data)
 
 ```
 
+## HCLUST
+
+```{r}
+distance = dist(as.matrix(data_clean), method = "euclidean")
+
+# perform clustering
+hc = hclust(distance)
+                
+# plot dendrogram
+plot(hc)
+```
+
