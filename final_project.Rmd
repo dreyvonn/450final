@@ -26,11 +26,18 @@ distance = dist(as.matrix(data_clean), method = "euclidean")
 
 # perform clustering
 hc = hclust(distance)
-clusterCut <- cutree(hc, 10)
 #library(cluster)
 #clusplot(clusterCut, color=TRUE, shade=TRUE, labels=2, lines=0)
                 
 # plot dendrogram
 plot(hc)
+```
+
+## Cut the tree
+
+```{r}
+clusterCut <- cutree(hc, 10)
+#library(cluster)
+#clusplot(clusterCut, color=TRUE, shade=TRUE, labels=2, lines=0)
 ```
 
