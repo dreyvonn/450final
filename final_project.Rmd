@@ -13,9 +13,9 @@ knitr::opts_chunk$set(echo = TRUE)
 # install.packages("arules")
 
 library(arules)
-data <- read.csv("AppleStore.csv")
+data <- read.csv("AppleStore.csv", head = TRUE)
 
-# data_rules <- apriori(data)
-# inspect(sort(data_rules, by = "lift")[1:30])
+data_clean <- na.omit(data)
+
 ```
 
