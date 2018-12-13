@@ -14,8 +14,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(arules)
 data <- read.csv("AppleStore.csv", head = TRUE)
-
 data_clean <- na.omit(data)
+
+# Removing uneccessary columns
+data_clean$id <- NULL
+data_clean$ver <- NULL
+data_clean$vpp_lic <- NULL
+data_clean$game_enab <- NULL
+
+# Transaction data? used for apriori
+tdata <- read.transactions("AppleStore.csv", sep=",")
+tdata_clean <- na.omit(tdata)
 
 ```
 
@@ -26,17 +35,35 @@ distance = dist(as.matrix(data_clean), method = "euclidean")
 
 # perform clustering
 hc = hclust(distance)
-#library(cluster)
-#clusplot(clusterCut, color=TRUE, shade=TRUE, labels=2, lines=0)
-                
+
+# cut the tree
+clusterCut <- cutree(hc, 10)
+
 # plot dendrogram
-plot(hc)
+plot(clusterCut)
+```
+
+## Apriori
+
+```{r}
+apprules <- apriori(tdata_clean, parameter = list(support = 0.002, confidence = 0.25, minlen = 2, maxlen=10))
+
+summary(apprules)
+inspect(sort(apprules, by = "support")[1:5])
+
+# itemFrequencyPlot(tdata_clean, support = 0.1)
+```
+
+## K-Means
+
+```{r}
+
 ```
 
 ## Cut the tree
 
 ```{r}
-clusterCut <- cutree(hc, 10)
+#clusterCut <- cutree(hc, 10)
 #library(cluster)
 #clusplot(clusterCut, color=TRUE, shade=TRUE, labels=2, lines=0)
 ```
