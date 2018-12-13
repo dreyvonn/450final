@@ -13,25 +13,14 @@ knitr::opts_chunk$set(echo = TRUE)
 # install.packages("arules")
 
 library(arules)
-data <- read.csv("AppleStore.csv", head = TRUE)
-data_clean <- na.omit(data)
-
-# Removing uneccessary columns
-data_clean$id <- NULL
-data_clean$ver <- NULL
-data_clean$vpp_lic <- NULL
-data_clean$game_enab <- NULL
-
-# Transaction data? used for apriori
-tdata <- read.transactions("AppleStore.csv", sep=",")
-tdata_clean <- na.omit(tdata)
-
+data <- read.csv(file = "AppleStoreClean.csv", head = TRUE)
+tdata <- read.transactions("AppleStoreClean.csv")
 ```
 
 ## HCLUST
 
 ```{r}
-distance = dist(as.matrix(data_clean), method = "euclidean")
+distance = dist(as.matrix(data), method = "euclidean")
 
 # perform clustering
 hc = hclust(distance)
@@ -46,10 +35,10 @@ plot(clusterCut)
 ## Apriori
 
 ```{r}
-apprules <- apriori(tdata_clean, parameter = list(support = 0.002, confidence = 0.25, minlen = 2, maxlen=10))
+apprules <- apriori(tdata, parameter = list(support = 0.002, confidence = 0.25, minlen = 2, maxlen=10))
 
 summary(apprules)
-inspect(sort(apprules, by = "support")[1:5])
+inspect(sort(apprules, by = "lift")[1:5])
 
 # itemFrequencyPlot(tdata_clean, support = 0.1)
 ```
