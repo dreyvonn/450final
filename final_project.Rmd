@@ -26,10 +26,12 @@ distance = dist(as.matrix(data), method = "euclidean")
 hc = hclust(distance)
 
 # cut the tree
-clusterCut <- cutree(hc, 10)
+clusterCut <- cutree(hc, 300)
 
 # plot dendrogram
 plot(clusterCut)
+
+#write.csv(clusterCut, file = "C:\\Users\\samue\\Desktop\\hclust.csv")
 ```
 
 ## Apriori
