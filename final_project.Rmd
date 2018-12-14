@@ -1,6 +1,8 @@
 ---
 title: "Final Project"
-output: pdf_document
+output:
+  word_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -41,10 +43,10 @@ apprules <- apriori(tdata, parameter = list(support = 0.01, confidence = 0.35, m
 
 summary(apprules)
 
-inspect(sort(apprules, by = "confidence")[1:20])
+inspect(sort(apprules, by = "lift")[1:20])
 
-itemFrequencyPlot(tdata, topN = 20)
-#itemFrequencyPlot(tdata, support = 0.01)
+#itemFrequencyPlot(tdata, support = 0.1) # items with a support of 0.1
+#itemFrequencyPlot(tdata, topN = 20) # 20 most frequent items
 ```
 
 ## K-Means
