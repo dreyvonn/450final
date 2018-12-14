@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(arules)
 data <- read.csv(file = "AppleStoreClean.csv", head = TRUE)
-tdata <- read.transactions("AppleStoreClean.csv")
+tdata <- read.transactions("AppleStoreClean.csv", quote="")
 ```
 
 ## HCLUST
@@ -35,12 +35,14 @@ plot(clusterCut)
 ## Apriori
 
 ```{r}
-apprules <- apriori(tdata, parameter = list(support = 0.002, confidence = 0.25, minlen = 2, maxlen=10))
+apprules <- apriori(tdata, parameter = list(support = 0.005, confidence = 0.25))
 
 summary(apprules)
-inspect(sort(apprules, by = "lift")[1:5])
 
-# itemFrequencyPlot(tdata_clean, support = 0.1)
+inspect(sort(apprules, by = "confidence")[1:12])
+
+#itemFrequencyPlot(tdata_all, topN = 10)
+#itemFrequencyPlot(tdata_all, support = 0.001)
 ```
 
 ## K-Means
