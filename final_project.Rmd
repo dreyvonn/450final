@@ -48,18 +48,8 @@ inspect(sort(apprules, by = "lift")[1:20])
 #itemFrequencyPlot(tdata, support = 0.1) # items with a support of 0.1
 #itemFrequencyPlot(tdata, topN = 20) # 20 most frequent items
 ```
-
-## K-Means
-
+## cut data
 ```{r}
-
-```
-
-## Cut the tree
-
-```{r}
-#clusterCut <- cutree(hc, 10)
-#library(cluster)
-#clusplot(clusterCut, color=TRUE, shade=TRUE, labels=2, lines=0)
+data_cut <- data[, c(3, 4, 6, 8, 9)]
 ```
 
