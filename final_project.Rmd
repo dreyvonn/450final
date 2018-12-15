@@ -154,22 +154,28 @@ cost_data <- data.frame(split_data[1])
 
 ## GG PLOT GRAPHS
 
+## Genre graphs
+
 ```{r}
 library(ggplot2)
 
 # All Apps
-g <- ggplot(data, aes(prime_genre, fill = prime_genre))
-g + geom_bar()
+ggplot(data, aes(prime_genre, fill = prime_genre)) + geom_bar() + ggtitle("All App Genres") + xlab("genre") + ylab("count")
 
 # Free Apps
-ggplot(free_data, aes(TRUE.prime_genre, fill = TRUE.prime_genre)) + geom_bar()
+ggplot(free_data, aes(TRUE.prime_genre, fill = TRUE.prime_genre)) + geom_bar() + ggtitle("Free App Genres") + xlab("genre") + ylab("count")
 
 # Paid Apps
-ggplot(cost_data, aes(FALSE.prime_genre, fill = FALSE.prime_genre)) + geom_bar()
+ggplot(cost_data, aes(FALSE.prime_genre, fill = FALSE.prime_genre)) + geom_bar() + ggtitle("Paid App Genres") + xlab("genre") + ylab("count")
 
 # Both
-ggplot(modified_data, aes(x = prime_genre, fill = isFree)) + geom_bar(position="dodge")
+ggplot(modified_data, aes(x = prime_genre, fill = isFree)) + geom_bar(position="dodge") + ggtitle("Free vs Paid App Genres") + xlab("genre") + ylab("count")
 ```
+
+
+
+
+## USELESS ONCE THE GG PLOT GRAPHS ARE FUNCTIONING
 
 ## Bar Graph - Genres
 
