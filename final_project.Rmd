@@ -37,7 +37,7 @@ clusterCut <- cutree(hc, 300)
 # plot dendrogram
 plot(clusterCut)
 
-#write.csv(clusterCut, file = "C:\\Users\\samue\\Desktop\\hclust.csv")
+#write.csv(clusterCut, file = =hclust.csv")
 ```
 
 ## Apriori - Regular
@@ -80,7 +80,9 @@ data_encoded <- data2[, c(3, 4, 6, 8, 9)]
 
 
 ```
+
 ## Optimal K
+
 ```{r}
 
 k.max <- 15
@@ -95,6 +97,7 @@ plot(1:k.max, wss,
 ```
 
 ## kmeans
+
 ```{r}
 # Cluster into k=5 clusters:
 myClusters = kmeans(data_encoded, 3)
@@ -126,6 +129,7 @@ for (i in 1:25) {
 ```
 
 ## optimal k
+
 ```{r}
 
 k.max <- 15
@@ -139,11 +143,13 @@ plot(1:k.max, wss,
 
 ```
 
-
 ## New column based on cost
 
 ```{r}
 modified_data$isFree <- (data$price == 0)
+split_data <- split(modified_data, modified_data$isFree)
+free_data <- data.frame(split_data[2])
+cost_data <- data.frame(split_data[1])
 ```
 
 ## GG PLOT GRAPHS
@@ -151,20 +157,29 @@ modified_data$isFree <- (data$price == 0)
 ```{r}
 library(ggplot2)
 
-counts <- table(data$prime_genre)
-barplot(counts, main="App Genres", 
-  	xlab="Genres")
+# All Apps
+g <- ggplot(data, aes(prime_genre, fill = prime_genre))
+g + geom_bar()
 
-#df <- data.frame(genre=c(data$prime_genre), cost=c(data$price))
+# Free Apps
+ggplot(free_data, aes(TRUE.prime_genre, fill = TRUE.prime_genre)) + geom_bar()
 
-#p<-ggplot(data=df, aes(x=genre, y=cost)) + geom_bar(stat="identity")
-#p
+# Paid Apps
+ggplot(cost_data, aes(FALSE.prime_genre, fill = FALSE.prime_genre)) + geom_bar()
+
+# Both
+ggplot(modified_data, aes(x = prime_genre, fill = isFree)) + geom_bar(position="dodge")
 ```
-
 
 ## Bar Graph - Genres
 
 ```{r}
 tbl <- with(data, table(prime_genre))
 barplot(tbl, beside = TRUE, legend = FALSE, main = "Application Genres", xlab = "genre", ylab = "number")
+
+tbl <- with(free_data, table(TRUE.prime_genre))
+barplot(tbl, beside = TRUE, legend = FALSE, main = "Free App Genres", xlab = "genre", ylab = "number")
+
+tbl <- with(cost_data, table(FALSE.prime_genre))
+barplot(tbl, beside = TRUE, legend = FALSE, main = "Paid App Genres", xlab = "genre", ylab = "number")
 ```
