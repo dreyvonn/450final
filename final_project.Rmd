@@ -14,10 +14,12 @@ knitr::opts_chunk$set(echo = TRUE, python = reticulate::eng_python)
 
 ```{r}
 #install.packages("arules")
+#install.packages("ggplot2")
 
 library(arules)
 data <- read.csv(file = "AppleStoreClean.csv", head = TRUE)
 tdata <- read.transactions("AppleStoreClean.csv", quote="", sep=",")
+cutdata <- read.transactions("AppleStoreCut.csv", quote="", sep=",")
 modified_data <- data
 ```
 
@@ -38,7 +40,7 @@ plot(clusterCut)
 #write.csv(clusterCut, file = "C:\\Users\\samue\\Desktop\\hclust.csv")
 ```
 
-## Apriori
+## Apriori - Regular
 
 ```{r}
 apprules <- apriori(tdata, parameter = list(support = 0.01, confidence = 0.35, minlen = 2))
@@ -51,7 +53,21 @@ inspect(sort(apprules, by = "lift")[1:20])
 #itemFrequencyPlot(tdata, topN = 20) # 20 most frequent items
 ```
 
+## Apriori - Cut Data
+
+```{r}
+cutrules <- apriori(cutdata, parameter = list(support = 0.01, confidence = 0.35, minlen = 2))
+
+summary(cutrules)
+
+inspect(sort(cutrules, by = "lift")[1:20])
+
+#itemFrequencyPlot(tdata, support = 0.1) # items with a support of 0.1
+#itemFrequencyPlot(tdata, topN = 20) # 20 most frequent items
+```
+
 ## cut data/label encoding
+
 ```{r}
 data_cut <- data[, c(3, 4, 6, 8, 9)]
 
@@ -69,9 +85,23 @@ data_encoded <- data2[, c(3, 4, 6, 8, 9)]
 
 ```{r}
 modified_data$isFree <- (data$price == 0)
-free_data <- split.data.frame(modified_data, modified_data$isFree)
-# print(free_data[1]) # all the not free shtuffs
 ```
+
+## GG PLOT GRAPHS
+
+```{r}
+library(ggplot2)
+
+counts <- table(data$prime_genre)
+barplot(counts, main="App Genres", 
+  	xlab="Genres")
+
+#df <- data.frame(genre=c(data$prime_genre), cost=c(data$price))
+
+#p<-ggplot(data=df, aes(x=genre, y=cost)) + geom_bar(stat="identity")
+#p
+```
+
 
 ## Bar Graph - Genres
 
