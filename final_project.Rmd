@@ -52,13 +52,17 @@ inspect(sort(apprules, by = "lift")[1:20])
 ```
 
 ## cut data/label encoding
-
 ```{r}
 data_cut <- data[, c(3, 4, 6, 8, 9)]
+
+data2 <- read.csv(file = "AppleStoreEncoded.csv", head = TRUE)
+data_encoded <- data2[, c(3, 4, 6, 8, 9)]
 
 #for(i in 1:length(data_cut$prime_genre)) {
 #  if(data_cut$prime_genre[i] == "Games") data_cut$prime_genre[i] <- 1
 #}
+
+
 ```
 
 ## New column based on cost
