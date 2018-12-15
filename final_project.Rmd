@@ -80,6 +80,65 @@ data_encoded <- data2[, c(3, 4, 6, 8, 9)]
 
 
 ```
+## Optimal K
+```{r}
+
+k.max <- 15
+wss <- sapply(1:k.max, 
+              function(k){kmeans(data_encoded, k, nstart=50,iter.max = 15 )$tot.withinss})
+wss
+plot(1:k.max, wss,
+     type="b", pch = 19, frame = FALSE, 
+     xlab="Number of clusters K",
+     ylab="Total within-clusters sum of squares")
+
+```
+
+## kmeans
+```{r}
+# Cluster into k=5 clusters:
+myClusters = kmeans(data_encoded, 3)
+
+# Summary of the clusters
+summary(myClusters)
+
+# Centers (mean values) of the clusters
+myClusters$centers
+
+# Cluster assignments
+myClusters$cluster
+
+# Within-cluster sum of squares and total sum of squares across clusters
+myClusters$withinss
+myClusters$tot.withinss
+
+
+# Plotting a visual representation of k-means clusters
+library(cluster)
+clusplot(data_encoded, myClusters$cluster, color=TRUE, shade=TRUE, labels=2, lines=0)
+
+```
+```{r}
+for (i in 1:25) {
+  myClusters = kmeans(data_encoded, i)
+  print(myClusters$tot.withinss)
+}
+```
+
+## optimal k
+```{r}
+
+k.max <- 15
+wss <- sapply(1:k.max, 
+              function(k){kmeans(data_encoded, k, nstart=50,iter.max = 15 )$tot.withinss})
+wss
+plot(1:k.max, wss,
+     type="b", pch = 19, frame = FALSE, 
+     xlab="Number of clusters K",
+     ylab="Total within-clusters sum of squares")
+
+```
+
 
 ## New column based on cost
 
