@@ -14,12 +14,11 @@ knitr::opts_chunk$set(echo = TRUE, python = reticulate::eng_python)
 
 ```{r}
 #install.packages("arules")
-#install.packages("reticulate")
-library(reticulate)
 
 library(arules)
 data <- read.csv(file = "AppleStoreClean.csv", head = TRUE)
 tdata <- read.transactions("AppleStoreClean.csv", quote="", sep=",")
+modified_data <- data
 ```
 
 ## HCLUST
@@ -51,7 +50,9 @@ inspect(sort(apprules, by = "lift")[1:20])
 #itemFrequencyPlot(tdata, support = 0.1) # items with a support of 0.1
 #itemFrequencyPlot(tdata, topN = 20) # 20 most frequent items
 ```
+
 ## cut data/label encoding
+
 ```{r}
 data_cut <- data[, c(3, 4, 6, 8, 9)]
 
@@ -60,3 +61,17 @@ data_cut <- data[, c(3, 4, 6, 8, 9)]
 #}
 ```
 
+## New column based on cost
+
+```{r}
+modified_data$isFree <- (data$price == 0)
+free_data <- split.data.frame(modified_data, modified_data$isFree)
+# print(free_data[1]) # all the not free shtuffs
+```
+
+## Bar Graph - Genres
+
+```{r}
+tbl <- with(data, table(prime_genre))
+barplot(tbl, beside = TRUE, legend = FALSE, main = "Application Genres", xlab = "genre", ylab = "number")
+```
