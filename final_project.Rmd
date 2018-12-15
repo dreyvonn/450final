@@ -6,13 +6,16 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, python = reticulate::eng_python)
+#use_python()
 ```
 
 ## R Markdown
 
 ```{r}
-# install.packages("arules")
+#install.packages("arules")
+#install.packages("reticulate")
+library(reticulate)
 
 library(arules)
 data <- read.csv(file = "AppleStoreClean.csv", head = TRUE)
@@ -48,8 +51,12 @@ inspect(sort(apprules, by = "lift")[1:20])
 #itemFrequencyPlot(tdata, support = 0.1) # items with a support of 0.1
 #itemFrequencyPlot(tdata, topN = 20) # 20 most frequent items
 ```
-## cut data
+## cut data/label encoding
 ```{r}
 data_cut <- data[, c(3, 4, 6, 8, 9)]
+
+#for(i in 1:length(data_cut$prime_genre)) {
+#  if(data_cut$prime_genre[i] == "Games") data_cut$prime_genre[i] <- 1
+#}
 ```
 
