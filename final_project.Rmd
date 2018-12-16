@@ -1,8 +1,10 @@
 ---
 title: "Final Project"
 output:
-  word_document: default
+  html_document:
+    df_print: paged
   pdf_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -17,6 +19,8 @@ knitr::opts_chunk$set(echo = TRUE)
 #install.packages("ggplot2")
 
 library(arules)
+library(ggplot2)
+
 data <- read.csv(file = "AppleStoreClean.csv", head = TRUE)
 tdata <- read.transactions("AppleStoreClean.csv", quote="", sep=",")
 cutdata <- read.transactions("AppleStoreCut.csv", quote="", sep=",")
@@ -166,8 +170,6 @@ pie
 ## Genre graphs
 
 ```{r}
-library(ggplot2)
-
 # All Apps
 all_bar <- ggplot(data, aes(prime_genre, fill = prime_genre)) + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + geom_bar() + ggtitle("All App Genres") + xlab("genre") + ylab("count")
 all_bar
