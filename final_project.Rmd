@@ -160,16 +160,16 @@ cost_data <- data.frame(split_data[1])
 library(ggplot2)
 
 # All Apps
-ggplot(data, aes(prime_genre, fill = prime_genre)) + geom_bar() + ggtitle("All App Genres") + xlab("genre") + ylab("count")
+ggplot(data, aes(prime_genre, fill = prime_genre)) + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + geom_bar() + ggtitle("All App Genres") + xlab("genre") + ylab("count")
 
 # Free Apps
-ggplot(free_data, aes(TRUE.prime_genre, fill = TRUE.prime_genre)) + geom_bar() + ggtitle("Free App Genres") + xlab("genre") + ylab("count")
+ggplot(free_data, aes(TRUE.prime_genre, fill = TRUE.prime_genre)) + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + geom_bar() + ggtitle("Free App Genres") + xlab("genre") + ylab("count")
 
 # Paid Apps
-ggplot(cost_data, aes(FALSE.prime_genre, fill = FALSE.prime_genre)) + geom_bar() + ggtitle("Paid App Genres") + xlab("genre") + ylab("count")
+ggplot(cost_data, aes(FALSE.prime_genre, fill = FALSE.prime_genre)) + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + geom_bar() + ggtitle("Paid App Genres") + xlab("genre") + ylab("count")
 
 # Both
-ggplot(modified_data, aes(x = prime_genre, fill = isFree)) + geom_bar(position="dodge") + ggtitle("Free vs Paid App Genres") + xlab("genre") + ylab("count")
+ggplot(modified_data, aes(x = prime_genre, fill = isFree)) + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + geom_bar(position="dodge") + ggtitle("Free vs Paid App Genres") + xlab("genre") + ylab("count")
 ```
 
 
