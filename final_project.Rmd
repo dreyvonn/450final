@@ -1,10 +1,10 @@
 ---
 title: "Final Project"
 output:
+  word_document: default
+  pdf_document: default
   html_document:
     df_print: paged
-  pdf_document: default
-  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -47,7 +47,7 @@ plot(clusterCut)
 ## Apriori - Regular
 
 ```{r}
-apprules <- apriori(tdata, parameter = list(support = 0.01, confidence = 0.35, minlen = 2))
+apprules <- apriori(tdata, parameter = list(support = 0.03, confidence = 0.35, minlen = 2))
 
 summary(apprules)
 
@@ -60,7 +60,7 @@ inspect(sort(apprules, by = "lift")[1:20])
 ## Apriori - Cut Data
 
 ```{r}
-cutrules <- apriori(cutdata, parameter = list(support = 0.01, confidence = 0.35, minlen = 2))
+cutrules <- apriori(cutdata, parameter = list(support = 0.03, confidence = 0.35, minlen = 2))
 
 summary(cutrules)
 
