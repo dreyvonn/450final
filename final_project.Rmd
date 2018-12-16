@@ -6,7 +6,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, python = reticulate::eng_python)
+knitr::opts_chunk$set(echo = TRUE)
 #use_python()
 ```
 
@@ -154,13 +154,23 @@ cost_data <- data.frame(split_data[1])
 
 ## GG PLOT GRAPHS
 
+## Pie Chart
+
+```{r}
+bp <- ggplot(data, aes(x="", y="", fill=prime_genre)) + geom_bar(stat="identity")
+pie <- bp + coord_polar("y", start=0)
+pie
+```
+
+
 ## Genre graphs
 
 ```{r}
 library(ggplot2)
 
 # All Apps
-ggplot(data, aes(prime_genre, fill = prime_genre)) + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + geom_bar() + ggtitle("All App Genres") + xlab("genre") + ylab("count")
+all_bar <- ggplot(data, aes(prime_genre, fill = prime_genre)) + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + geom_bar() + ggtitle("All App Genres") + xlab("genre") + ylab("count")
+all_bar
 
 # Free Apps
 ggplot(free_data, aes(TRUE.prime_genre, fill = TRUE.prime_genre)) + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + geom_bar() + ggtitle("Free App Genres") + xlab("genre") + ylab("count")
@@ -169,8 +179,20 @@ ggplot(free_data, aes(TRUE.prime_genre, fill = TRUE.prime_genre)) + theme(axis.t
 ggplot(cost_data, aes(FALSE.prime_genre, fill = FALSE.prime_genre)) + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + geom_bar() + ggtitle("Paid App Genres") + xlab("genre") + ylab("count")
 
 # Both
-ggplot(modified_data, aes(x = prime_genre, fill = isFree)) + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + geom_bar(position="dodge") + ggtitle("Free vs Paid App Genres") + xlab("genre") + ylab("count")
+both_bar <- ggplot(modified_data, aes(x = prime_genre, fill = isFree)) + theme(axis.text.x = element_text(angle = 90, hjust = 1))+ geom_bar(position="dodge") + ggtitle("Free vs Paid App Genres") + xlab("genre") + ylab("count")
+both_bar
 ```
+
+## Rating vs genre
+
+```{r}
+ggplot(data) + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + geom_bar(aes(x = prime_genre, y= user_rating, fill = prime_genre), stat = "summary", fun.y = "mean") + ggtitle("Average User Rating by Genre") + xlab("genre") + ylab("average user rating")
+
+ggplot(data) + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + geom_bar(aes(x = prime_genre, y= size_bytes, fill = prime_genre), stat = "summary", fun.y = "mean") + ggtitle("Average Size (bytes) by Genre") + xlab("genre") + ylab("average size (bytes)")
+
+ggplot(data) + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + geom_bar(aes(x = prime_genre, y= price, fill = prime_genre), stat = "summary", fun.y = "mean") + ggtitle("Average Price by Genre") + xlab("genre") + ylab("average price")
+```
+
 
 
 
